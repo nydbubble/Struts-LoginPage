@@ -28,6 +28,7 @@ public class DbUtil {
                     Class.forName(dbDriver).newInstance();
                     dbConnection = DriverManager.getConnection(connectionUrl,
                             username, password);
+                    System.out.println("Connected to the database server successfully.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();

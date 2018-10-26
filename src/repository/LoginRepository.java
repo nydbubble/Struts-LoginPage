@@ -5,12 +5,11 @@ import util.DbUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class UserRepository implements LoginRepositoryInterface {
+public class LoginRepository {
     private Connection dbConnection;
 
-    public UserRepository() {
+    public LoginRepository() {
         dbConnection = DbUtil.getConnection();
     }
 
@@ -27,8 +26,10 @@ public class UserRepository implements LoginRepositoryInterface {
                         if (result.getString(1).equals(password)) {
                             return true;
                         }
+                        else return false;
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

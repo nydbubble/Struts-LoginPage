@@ -2,7 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import model.User;
-import service.UserService;
+import service.LoginService;
 
 public class LoginAction extends ActionSupport{
 
@@ -14,9 +14,9 @@ public class LoginAction extends ActionSupport{
 
     public void validate() {
         String result = "";
-        UserService userService = new UserService();
+        LoginService loginService = new LoginService();
 
-        result = userService.login(user.getUsername(), user.getPassword());
+        result = loginService.login(user.getUsername(), user.getPassword());
         if (result.equals("Unauthorized")) {
             addActionError("Invalid username/password.");
         }
