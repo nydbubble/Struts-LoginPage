@@ -13,7 +13,7 @@ public class LoginRepository {
         dbConnection = DbUtil.getConnection();
     }
 
-    public boolean authenticate(String username, String password) {
+    public String getPassword(String username) {
         if (dbConnection != null) {
             try {
                 PreparedStatement prepStatement = dbConnection
@@ -22,19 +22,21 @@ public class LoginRepository {
 
                 ResultSet result = prepStatement.executeQuery();
                 if (result != null) {
-                    while (result.next()) {
-                        if (result.getString(1).equals(password)) {
-                            return true;
-                        }
-                        else return false;
+                    if (result.next()) {
+                        //TODO: Debug only, remove when deploying
+                        System.out.println("Correct password: " + result.getString(1));
+                        return result.getString(1);
                     }
+                    System.out.println("Username not found! ");
+                    return "errorUsernameNotFound";
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return false;
+
+        return "errorWhatHappened";
     }
 
 }

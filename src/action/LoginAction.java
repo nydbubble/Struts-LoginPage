@@ -13,12 +13,21 @@ public class LoginAction extends ActionSupport{
     }
 
     public void validate() {
-        String result = "";
+        String result;
         LoginService loginService = new LoginService();
 
         result = loginService.login(user.getUsername(), user.getPassword());
-        if (result.equals("Unauthorized")) {
-            addActionError("Invalid username/password.");
+        switch (result) {
+            case "Unauthorized":
+                addActionError("Wrong password.");
+                break;
+            case "UsernameNotFound":
+                addActionError("Username not found.");
+                break;
+            case "LoginFail":
+                //Inform that there's something wrong with the database connection
+                addActionError("An error occured. Please try again later.");
+                break;
         }
     }
 
